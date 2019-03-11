@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+<title>Blank Page</title>
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<head>
+<script>
+	var counter=0;
+
+	window.addEventListener("message", receiveMessage, false);
+
+	function receiveMessage(event)
+	{
+	  console.log(JSON.stringify(event));
+	}
+
+
+	function postMessage(oEvent) {
+		counter++;
+		window.callPhantom({
+			"id": oEvent.id,
+			"evaluated": process(oEvent.code)
+		});
+	}
+
+	function process(code) {
+		var result=null;
+		try {
+			result=eval(code);
+
+		}
+		catch(e)
+		{
+			result = "Error: "+e.message;
+		}
+		return result;
+	}
+
+	var rows=[];
+
+	var start=(new Date()).valueOf();
+	for (var i = 0; i < 1; i++) {
+		  rows.push((new Date().valueOf()));
+		  if(rows.length==1) {
+			console.log('Elapsed '+((new Date()).valueOf()-start).toString() +"ms");
+		  }
+	}
+
+	//if (typeof window.callPhantom === 'function') {
+		//window.callPhantom({ hello: 'world' });
+	//}
+</script>
+</head>
+<body>
+hello world
+</body>
+</html>
